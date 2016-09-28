@@ -5,5 +5,6 @@ use_frameworks!
 
 target 'BookStore' do
 pod 'Alamofire'
+pod 'Fuzi'
 end
 
