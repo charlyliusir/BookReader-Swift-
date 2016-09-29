@@ -164,7 +164,9 @@ class UnpackData {
         for element in nodeDivs!
         {
             if element["id"] == "book_text" {
-                chapter.text = element.stringValue
+                chapter.text = element.stringValue.replacingOccurrences(of: "　　", with: " \n").replacingOccurrences(of: "\r\n        \r\n\t    ", with: "")
+                chapter.text?.remove(at: (chapter.text?.startIndex)!)
+                chapter.text?.remove(at: (chapter.text?.startIndex)!)
             }else if element["class"] == "data"{
                 let nodeset = element.xpath("span")
                 chapter.date   = nodeset[3].stringValue

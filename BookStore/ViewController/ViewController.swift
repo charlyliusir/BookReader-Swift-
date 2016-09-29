@@ -29,10 +29,6 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
                 self.bookList = UnpackData.unpack_book_list(data: data)
                 DispatchQueue.main.async(execute: {
                     self.tableView.reloadData()
-                    for book in self.bookList
-                    {
-                        book.class_desc()
-                    }
                 })
                 
             }
