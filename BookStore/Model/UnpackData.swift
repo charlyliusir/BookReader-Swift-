@@ -28,8 +28,7 @@ class UnpackData {
     /// 第一步,解析li标签
     class private func unpack_book_li(data:Data) -> NodeSet? {
         /// 第一步,获取数据解析成XML文档
-        let document = try? XMLDocument(data: data)
-        print("encoding \(document?.encoding)")
+        let document = try? HTMLDocument(data: data)
         /// 第二步,解析标签为li的所有数据
         return document?.xpath("//li")
     }
@@ -123,9 +122,60 @@ class UnpackData {
     }
     
     /// Chapter 列表解析
+    /// 获取书籍目录目录  【div class=“article_texttitleb”】
+    class func unpack_chapter_list(data:Data, book: Book) -> Array<Chapter> {
+        var chapterList:Array<Chapter> = []
+        let nodeDivs = self.unpack_chapters_div(data: data)
+        let nodeDivAT = self.unpack_chapters_divat(nodeSet: nodeDivs!)
+        for element in nodeDivAT! {
+            let chapter = Chapter();
+            chapter.name    = element.stringValue;
+            chapter.address = book.address?.appending(element["href"]!)
+            chapterList.append(chapter)
+        }
+        return chapterList
+    }
+    /// 第一步,解析div标签
+    class private func unpack_chapters_div(data:Data) -> NodeSet? {
+        /// 第一步,获取数据解析成XML文档
+        let document = try? HTMLDocument(data: data)
+        /// 第二步,解析标签为li的所有数据
+        return document?.xpath("//div")
+    }
+    /// 第二步,解析 div class=“article_texttitleb”
+    class private func unpack_chapters_divat(nodeSet:NodeSet) -> NodeSet? {
+        var article_text:XMLElement!
+        
+        /// 第一步,循环遍历
+        for element in nodeSet {
+            /// 第二步,判断标签id=“article_texttitleb”的所有标签
+            if element["class"] == "article_texttitleb" {
+                article_text = element
+            }
+        }
+        
+        return article_text.xpath("li/a")
+    }
     
     
     /// Chapter 章节信息解析
+    class public func unpack_chapter_info(data:Data, chapter:inout Chapter){
+        let nodeDivs = unpack_chapter_div(data: data)
+        for element in nodeDivs!
+        {
+            if element["id"] == "book_text" {
+                chapter.text = element.stringValue
+            }else if element["class"] == "data"{
+                let nodeset = element.xpath("span")
+                chapter.date   = nodeset[3].stringValue
+                chapter.number = nodeset[4].stringValue
+            }
+        }
+    }
     
-    
+    /// 
+    class func unpack_chapter_div(data:Data) -> NodeSet? {
+        let document = try? HTMLDocument(data: data)
+        return document?.xpath("//div")
+    }
 }

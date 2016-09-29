@@ -8,6 +8,7 @@
 
 import UIKit
 import Fuzi
+import Kingfisher
 
 class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource{
     let Identifier = "Cell"
@@ -43,7 +44,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         let book = self.bookList[indexPath.row]
         let infoVC   = BookInfoViewController()
         infoVC.book  = book
-        self.present(infoVC, animated: true, completion: nil)
+        self.navigationController?.pushViewController(infoVC, animated: true)
     }
     
     /// tableView datasource
@@ -58,7 +59,7 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         let cell = tableView.dequeueReusableCell(withIdentifier: Identifier, for: indexPath)
         
         cell.textLabel?.text = book.name
-        cell.detailTextLabel?.text = book.bookDesc
+        cell.imageView?.kf.setImage(with: URL(string:book.imgAddres!))
         return cell
         
     }
@@ -67,6 +68,5 @@ class ViewController: UIViewController,UITableViewDelegate,UITableViewDataSource
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
     }
-    
 }
 

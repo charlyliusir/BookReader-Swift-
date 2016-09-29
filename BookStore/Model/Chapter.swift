@@ -17,6 +17,8 @@ class Chapter: NSObject {
     var state : String?
     /// 章节地址
     var address : String?
+    /// 章节字数
+    var number : String?
     /// 章节详情
     var text : String?
     

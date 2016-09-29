@@ -4,7 +4,9 @@ platform :ios, '10.0'
 use_frameworks!
 
 target 'BookStore' do
+pod 'Kingfisher'
 pod 'Alamofire'
+pod 'SnapKit'
 pod 'Fuzi'
 end
 

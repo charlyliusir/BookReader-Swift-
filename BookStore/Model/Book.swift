@@ -16,7 +16,7 @@ class Book: NSObject {
     /// 作者信息
     var author : Author?
     /// 书籍章节
-    let chapters : Array<Chapter>? = []
+    var chapters : Array<Chapter>?
     /// 最新章节
     var newschapter : Chapter?
     /// 书籍地址
