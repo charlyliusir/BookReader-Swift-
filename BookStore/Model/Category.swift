@@ -8,8 +8,8 @@
 
 import Foundation
 
-let cgArray : Array<String> = ["玄幻魔法", "武侠修真", "言情都市", "历史穿越", "网游动漫", "科幻小说", "恐怖灵异", "其他小说"]
-let cgnArray: Array<Int> = [1,2,3,4,6,7,8,10]
+let cgArray : Array<String> = ["玄幻魔法", "武侠修真", "言情都市", "历史穿越", "网游动漫", "科幻小说", "恐怖灵异", "其他小说", "排行榜", "最近阅读"]
+let cgnArray: Array<Int> = [1,2,3,4,6,7,8,10,11,12]
 
 enum BookCategory : Int {
     case Fantasy_Magic = 1                      /*玄幻魔法*/
@@ -20,6 +20,8 @@ enum BookCategory : Int {
     case High_Fidelity                          /*科幻小说*/
     case Supernatural_Horror                    /*恐怖灵异*/
     case Other = 10                             /*其他小说*/
+    case Charts                                 /*排行榜*/
+    case Read                                   /*最近阅读*/
     
     func getString() -> String {
         let index = cgnArray.index(of: self.rawValue)

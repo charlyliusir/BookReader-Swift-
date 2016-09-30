@@ -4,6 +4,8 @@ platform :ios, '10.0'
 use_frameworks!
 
 target 'BookStore' do
+pod 'DGElasticPullToRefresh'
+pod 'SVProgressHUD'
 pod 'Kingfisher'
 pod 'Alamofire'
 pod 'SnapKit'

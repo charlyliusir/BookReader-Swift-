@@ -1,16 +1,25 @@
 PODS:
   - Alamofire (4.0.1)
+  - DGElasticPullToRefresh (1.1)
   - Fuzi (1.0.0)
   - Kingfisher (3.1.1)
+  - SnapKit (3.0.1)
+  - SVProgressHUD (2.0.3)
 
 DEPENDENCIES:
   - Alamofire
+  - DGElasticPullToRefresh
   - Fuzi
   - Kingfisher
+  - SnapKit
+  - SVProgressHUD
 
 SPEC CHECKSUMS:
   Alamofire: 7682d43245de14874acd142ec137b144aa1dd335
+  DGElasticPullToRefresh: 28f11a6026302a90f8ffebbc6e24748e584dddd3
   Fuzi: e88177b7cfdf3aa2b828c096c73551232a7f5c72
   Kingfisher: 12b755ae697cc9f0fd3e550db8417fa1233e09ab
+  SnapKit: f818b8326d45b4e1c777d0ab27b5c0a3624bfdeb
+  SVProgressHUD: b0830714205bea1317ea1a2ebc71e5633af334d4
 
 COCOAPODS: 0.39.0

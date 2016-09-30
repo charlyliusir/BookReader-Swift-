@@ -85,11 +85,17 @@ strip_invalid_archs() {
 
 if [[ "$CONFIGURATION" == "Debug" ]]; then
   install_framework "Pods-BookStore/Alamofire.framework"
+  install_framework "Pods-BookStore/DGElasticPullToRefresh.framework"
   install_framework "Pods-BookStore/Fuzi.framework"
   install_framework "Pods-BookStore/Kingfisher.framework"
+  install_framework "Pods-BookStore/SVProgressHUD.framework"
+  install_framework "Pods-BookStore/SnapKit.framework"
 fi
 if [[ "$CONFIGURATION" == "Release" ]]; then
   install_framework "Pods-BookStore/Alamofire.framework"
+  install_framework "Pods-BookStore/DGElasticPullToRefresh.framework"
   install_framework "Pods-BookStore/Fuzi.framework"
   install_framework "Pods-BookStore/Kingfisher.framework"
+  install_framework "Pods-BookStore/SVProgressHUD.framework"
+  install_framework "Pods-BookStore/SnapKit.framework"
 fi

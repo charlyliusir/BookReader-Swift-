@@ -6,10 +6,10 @@
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
     <scenes>
-        <!--书库-->
+        <!--我的书架-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="BookStore" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController id="BYZ-38-t0r" customClass="HomeController" customModule="BookStore" customModuleProvider="target" sceneMemberID="viewController">
                     <layoutGuides>
                         <viewControllerLayoutGuide type="top" id="y3c-jy-aDJ"/>
                         <viewControllerLayoutGuide type="bottom" id="wfy-db-euE"/>
@@ -19,7 +19,14 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                     </view>
-                    <navigationItem key="navigationItem" title="书库" id="e6q-0V-wZx"/>
+                    <navigationItem key="navigationItem" title="我的书架" id="e6q-0V-wZx">
+                        <barButtonItem key="leftBarButtonItem" image="book_user_icon.png" id="HYS-eU-Tgs"/>
+                        <barButtonItem key="rightBarButtonItem" title="书库" id="avG-eH-QOA">
+                            <connections>
+                                <action selector="turnBookStore:" destination="BYZ-38-t0r" id="pg8-tB-ttf"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
@@ -33,6 +40,11 @@
                     <navigationBar key="navigationBar" contentMode="scaleToFill" id="OuR-0w-nEK">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
+                        <color key="tintColor" red="0.13725490200000001" green="0.72156862749999995" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                        <color key="barTintColor" red="0.25917837020000001" green="0.44241347910000001" blue="0.27888876200000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                        <textAttributes key="titleTextAttributes">
+                            <color key="textColor" red="0.13725490200000001" green="0.72156862749999995" blue="0.89411764709999997" alpha="1" colorSpace="calibratedRGB"/>
+                        </textAttributes>
                     </navigationBar>
                     <nil name="viewControllers"/>
                     <connections>
@@ -44,4 +56,7 @@
             <point key="canvasLocation" x="33" y="-62"/>
         </scene>
     </scenes>
+    <resources>
+        <image name="book_user_icon.png" width="32" height="32"/>
+    </resources>
 </document>
