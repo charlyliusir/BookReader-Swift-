@@ -10,5 +10,6 @@ pod 'Kingfisher'
 pod 'Alamofire'
 pod 'SnapKit'
 pod 'Fuzi'
+pod 'ESPullToRefresh'
 end
 

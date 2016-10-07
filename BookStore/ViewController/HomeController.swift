@@ -82,16 +82,15 @@ class HomeController: TableViewController,UITableViewDelegate,UITableViewDataSou
         
     }
     
-    
     /// 加载数据
     func loadData() -> Swift.Void {
         
-        SVProgressHUD.show(withStatus: "正在加载数据")
+//        SVProgressHUD.show(withStatus: "正在加载数据")
         NetKit.get(url: BASE_URL, contants: .HTML) { (response) in
             if let data = response.data {
                 self.bookList = UnpackData.unpack_book_list(data: data)
                 DispatchQueue.main.async(execute: {
-                    SVProgressHUD.dismiss()
+//                    SVProgressHUD.dismiss()
                     self.tableView.reloadData()
                 })
             }

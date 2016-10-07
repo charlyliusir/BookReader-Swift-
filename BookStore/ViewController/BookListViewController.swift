@@ -8,6 +8,7 @@
 
 import UIKit
 import SVProgressHUD
+import ESPullToRefresh
 
 class BookListViewController: TableViewController,UITableViewDelegate,UITableViewDataSource {
     
@@ -15,7 +16,7 @@ class BookListViewController: TableViewController,UITableViewDelegate,UITableVie
     let titleValue:String! = nil
     var type:BookCategory  = BookCategory.Fantasy_Magic
     var dataSource:Array<Any>! = []
-    var page:UInt! = 1
+    var page:Int = 1
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,14 +27,6 @@ class BookListViewController: TableViewController,UITableViewDelegate,UITableVie
         tableView.delegate = self;
         tableView.dataSource = self;
         tableView.register(BookTableViewCell.self, forCellReuseIdentifier: Identifier)
-        
-        tableView.dg_addPullToRefreshWithActionHandler({ [weak self] () -> Void in
-            // Add your logic here
-            // Do not forget to call dg_stopLoading() at the end
-            self?.tableView.dg_stopLoading()
-            }, loadingView: loadingView)
-        tableView.dg_setPullToRefreshFillColor((self.navigationController?.navigationBar.barTintColor)!)
-        tableView.dg_setPullToRefreshBackgroundColor(backgroundColor)
         
         loadData()
     }
@@ -71,26 +64,52 @@ class BookListViewController: TableViewController,UITableViewDelegate,UITableVie
         // Dispose of any resources that can be recreated.
     }
     
+    override func refresh() {
+        super.refresh()
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            self.page = 1
+            self.dataSource.removeAll()
+            self.getBookList(page:self.page,handle:{
+                self.tableView.es_stopPullToRefresh(completion: true)
+            }())
+        }
+    }
+    
+    override func loadMore() {
+        super.loadMore()
+        DispatchQueue.main.asyncAfter(deadline: .now()) {
+            
+            if self.page < self.dataSource.count  {
+                self.getBookList(page:self.page,handle:{
+                    self.page += 1
+                    self.tableView.es_stopLoadingMore()
+                    }())
+            } else {
+                self.tableView.es_noticeNoMoreData()
+            }
+        }
+    }
+    
     func loadData() -> Swift.Void {
         switch type {
         case .Charts, .Other, .Read: break
         default:
-            getBookList(page:page)
+            getBookList(page:page,handle: {}())
         }
     }
     
-    func getBookList(page:UInt) -> Swift.Void {
-        SVProgressHUD.show(withStatus: "正在加载数据")
-        NetKit.get(url: book_category(category: UInt(self.type.rawValue), page: page), contants: .HTML) { (response) in
+    func getBookList(page:Int, handle:()) -> Swift.Void {
+//        SVProgressHUD.show(withStatus: "正在加载数据")
+        NetKit.get(url: book_category(category: UInt(self.type.rawValue), page: UInt(page)), contants: .HTML) { (response) in
             if let data = response.data {
-                let booklist = UnpackData.unpack_book_list(data: data)
+                let booklist:Array<Any> = UnpackData.unpack_book_list(data: data)
                 if booklist.count > 0 {
-                    self.dataSource.append(booklist)
-//                    page = page + 1
+                    self.dataSource.append(contentsOf: booklist)
                 }
                 DispatchQueue.main.async(execute: {
-                    SVProgressHUD.dismiss()
+//                    SVProgressHUD.dismiss()
                     self.tableView.reloadData()
+                    handle
                 })
             }
         }

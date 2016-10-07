@@ -10,7 +10,7 @@ import UIKit
 
 class OtherInfo: NSObject {
     /// 字数
-    var number : String! = "0"
+    var number : String? = "0"
     /// 收藏
     var collection : String?  = "0"
     /// 点击
