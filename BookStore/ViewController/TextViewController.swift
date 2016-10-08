@@ -20,7 +20,7 @@ class TextViewController: UIViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         textView = UITextView(frame: CGRect(x: 10, y: 10, width: size.width, height: size.height), textContainer: container)
-        textView.attributedText = text!
+        textView.attributedText = text?
         textView.font           = font
         textView.textColor      = color
         textView.isEditable = false
