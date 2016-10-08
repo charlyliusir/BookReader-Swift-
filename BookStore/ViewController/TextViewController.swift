@@ -9,37 +9,23 @@
 import UIKit
 
 class TextViewController: UIViewController {
-    var book:Book! = nil
-    var chapter:Chapter! = nil
     var textView:UITextView! = nil
+    var text:NSAttributedString?
+    var font:UIFont!
+    var size:CGSize!
+    var color:UIColor!
+    var container:NSTextContainer!
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        self.view.backgroundColor = UIColor.white
-        textView = UITextView(frame: CGRect(x: 0, y: 30, width: self.view.frame.size.width, height: self.view.frame.size.height-40))
-        textView.font = UIFont.systemFont(ofSize: 20)
+        textView = UITextView(frame: CGRect(x: 10, y: 10, width: size.width, height: size.height), textContainer: container)
+        textView.attributedText = text!
+        textView.font           = font
+        textView.textColor      = color
         textView.isEditable = false
-        self.view.addSubview(textView)
-        NetKit.get(url: chapter.address!, contants: .HTML) { (response) in
-            if let data = response.data{
-                UnpackData.unpack_chapter_info(data: data,chapter: &self.chapter!)
-                DispatchQueue.main.async(execute: { 
-                    self.setText()
-                })
-            }
-        }
-        
     }
     
-    func setText() -> Swift.Void {
-        let fontSize:CGFloat = 22
-        let paragraphStyle  = NSMutableParagraphStyle()
-        paragraphStyle.firstLineHeadIndent  = (fontSize*2)
-        paragraphStyle.lineSpacing = 10
-        paragraphStyle.paragraphSpacing = 10
-        let attributeString = NSAttributedString(string: chapter.text!, attributes: [NSFontAttributeName:UIFont.systemFont(ofSize: fontSize ),NSParagraphStyleAttributeName:paragraphStyle])
-        textView.attributedText = attributeString
-    }
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
