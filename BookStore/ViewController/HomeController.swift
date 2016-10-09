@@ -46,7 +46,8 @@ class HomeController: TableViewController,UITableViewDelegate,UITableViewDataSou
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let book = self.bookList[indexPath.row]
-        let infoVC   = ContentMainViewController()
+        let infoVC   = storyboard?.instantiateViewController(withIdentifier: "MainViewControllerID") as! MainViewController
+        infoVC.book  = book
         self.present(infoVC, animated: true, completion: nil)
 //        infoVC.book  = book
 //        self.navigationController?.pushViewController(infoVC, animated: true)

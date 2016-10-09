@@ -176,7 +176,7 @@ class UnpackData {
     }
     
     /// 
-    class func unpack_chapter_div(data:Data) -> NodeSet? {
+    class private func unpack_chapter_div(data:Data) -> NodeSet? {
         let document = try? HTMLDocument(data: data)
         return document?.xpath("//div")
     }

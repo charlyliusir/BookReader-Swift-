@@ -55,6 +55,80 @@
             </objects>
             <point key="canvasLocation" x="33" y="-62"/>
         </scene>
+        <!--Main View Controller-->
+        <scene sceneID="ElD-2O-Ld8">
+            <objects>
+                <viewController storyboardIdentifier="MainViewControllerID" id="5QR-HE-gaL" customClass="MainViewController" customModule="BookStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Afb-jF-VWH"/>
+                        <viewControllerLayoutGuide type="bottom" id="Cqf-a8-5Dr"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="He9-8y-8KQ">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <containerView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="QTf-v8-UOm">
+                                <connections>
+                                    <segue destination="i3L-nC-wlt" kind="embed" id="N1a-zR-DKq"/>
+                                </connections>
+                            </containerView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="第一章 石村少年" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="IIM-93-eSN">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="1/10 页" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="le3-uA-vuP">
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="QTf-v8-UOm" firstAttribute="leading" secondItem="He9-8y-8KQ" secondAttribute="leading" id="1j8-Hd-rkN"/>
+                            <constraint firstAttribute="trailing" secondItem="QTf-v8-UOm" secondAttribute="trailing" id="4u1-LL-yET"/>
+                            <constraint firstItem="IIM-93-eSN" firstAttribute="top" secondItem="Afb-jF-VWH" secondAttribute="bottom" constant="5" id="OZU-KG-UMw"/>
+                            <constraint firstItem="IIM-93-eSN" firstAttribute="leading" secondItem="He9-8y-8KQ" secondAttribute="leading" constant="20" id="Rar-z2-MwL"/>
+                            <constraint firstItem="QTf-v8-UOm" firstAttribute="top" secondItem="Afb-jF-VWH" secondAttribute="bottom" id="Wiv-Jd-ndY"/>
+                            <constraint firstItem="Cqf-a8-5Dr" firstAttribute="top" secondItem="QTf-v8-UOm" secondAttribute="bottom" constant="-20" id="YFc-Ub-Tbk"/>
+                            <constraint firstItem="Cqf-a8-5Dr" firstAttribute="top" secondItem="le3-uA-vuP" secondAttribute="bottom" constant="5" id="mYD-Dq-eGa"/>
+                            <constraint firstAttribute="trailing" secondItem="le3-uA-vuP" secondAttribute="trailing" constant="20" id="s6z-zf-Uub"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="pageLabel" destination="le3-uA-vuP" id="FuC-d2-bFf"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="W2U-QL-RQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-15" y="616"/>
+        </scene>
+        <!--Page View Controller-->
+        <scene sceneID="kPE-Ps-D8p">
+            <objects>
+                <pageViewController autoresizesArchivedViewToFullSize="NO" transitionStyle="scroll" navigationOrientation="horizontal" spineLocation="none" id="i3L-nC-wlt" sceneMemberID="viewController"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="5px-vI-ney" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-38" y="1269"/>
+        </scene>
+        <!--Book View Controller-->
+        <scene sceneID="KR1-nh-wfz">
+            <objects>
+                <viewController storyboardIdentifier="BookController" id="4Qv-3K-Nxw" customClass="BookViewController" customModule="BookStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="OdJ-JB-weD"/>
+                        <viewControllerLayoutGuide type="bottom" id="mbu-xl-LfH"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="x1K-Wh-SLD">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="wph-Rw-etZ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="943" y="616"/>
+        </scene>
     </scenes>
     <resources>
         <image name="book_user_icon.png" width="32" height="32"/>

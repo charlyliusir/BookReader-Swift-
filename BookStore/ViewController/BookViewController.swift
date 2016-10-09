@@ -1,14 +1,15 @@
 //
-//  TextViewController.swift
+//  BookViewController.swift
 //  BookStore
 //
-//  Created by apple on 16/9/29.
+//  Created by apple on 16/10/9.
 //  Copyright © 2016年 刘朝龙. All rights reserved.
 //
 
 import UIKit
 
-class TextViewController: UIViewController {
+class BookViewController: UIViewController {
+
     var textView:UITextView!
     var size:CGSize!
     var color:UIColor!
@@ -29,7 +30,7 @@ class TextViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        textView = UITextView(frame: CGRect(x: 10, y: 10, width: size.width, height: size.height-10), textContainer: container)
+        textView = UITextView(frame: CGRect(x: 10, y: 20, width: size.width, height: size.height), textContainer: container)
         textView.backgroundColor = UIColor.clear
         textView.textColor       = color
         textView.isEditable = false
@@ -39,7 +40,6 @@ class TextViewController: UIViewController {
         
         self.view.addSubview(textView)
     }
-    
 
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()

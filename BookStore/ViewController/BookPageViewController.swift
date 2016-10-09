@@ -13,9 +13,9 @@ class BookPageViewController: UIPageViewController {
     var text:String?
     var layoutManager:NSLayoutManager!
     var attribute:NSMutableParagraphStyle = NSMutableParagraphStyle()
-    var vcList:Array<TextViewController>?  = []
+    var vcList:Array<Any>?  = []
     let textColor:UIColor! = UIColor.black
-    let textFont:UIFont!   = font(20)
+    let textFont:UIFont!   = font(22)
     var currentPage = 0
     var totalPage   = 0
     
@@ -34,24 +34,28 @@ class BookPageViewController: UIPageViewController {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
         self.view.backgroundColor = UIColor.orange
-        size = CGSize(width: SCREEN_WIDTH-20, height: self.view.frame.size.height-20)
+        size = CGSize(width: SCREEN_WIDTH-20, height: SCREEN_HEIGHT-85)
         
-        getAttribute(paragraphStyle: &attribute)
-        
-        layoutManager = NSLayoutManager()
-        let store     = NSTextStorage()
-        let container = NSTextContainer()
-        store.addLayoutManager(layoutManager)
-        layoutManager.addTextContainer(container)
-        /// 初始化第一个界面
-        let vc        = TextViewController()
-        vc.container  = container
-        vc.size       = size
-        vc.color      = textColor
-        vc.font       = textFont
-        self.vcList?.append(vc)
-        
-        self.setViewControllers([vc], direction: .forward, animated: true, completion: nil)
+//        getAttribute(paragraphStyle: &attribute)
+//        
+//        layoutManager = NSLayoutManager()
+//        let store     = NSTextStorage()
+//        let container = NSTextContainer(size: size)
+//        store.addLayoutManager(layoutManager)
+//        layoutManager.addTextContainer(container)
+//        /// 初始化第一个界面
+//        let vc        = TextViewController()
+//        vc.container  = container
+//        vc.size       = size
+//        vc.color      = textColor
+//        self.vcList?.append(vc)
+        let test1 = Test1ViewController()
+        let test2 = Test2ViewController()
+        let test3 = Test3ViewController()
+        self.vcList?.append(test1)
+        self.vcList?.append(test2)
+        self.vcList?.append(test3)
+        self.setViewControllers([(self.vcList?.first)! as! UIViewController], direction: .reverse, animated: true, completion: nil)
     }
 
     override func didReceiveMemoryWarning() {
@@ -70,34 +74,37 @@ extension BookPageViewController{
         ///
         let textSize = self.text!.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSParagraphStyleAttributeName:self.attribute,NSFontAttributeName:textFont], context: nil).size
         
-        totalPage   = Int(textSize.height/size.height)
+        totalPage   = Int(textSize.height/size.height) + Int(1)
         currentPage = 0
 
         var temp = 0
-        while temp < currentPage - 1  {
+        while temp < totalPage  {
             
-            temp = temp + 1
-            var container:NSTextContainer!
             var vc:TextViewController!
-            layoutManager.addTextContainer(container)
-            
+            var container:NSTextContainer!
             if temp >= (vcList?.count)! {
-                vc        = TextViewController()
                 container = NSTextContainer(size: size)
+                layoutManager.addTextContainer(container)
+                vc            = TextViewController()
+                vc.container  = container
                 vcList?.append(vc)
             }else{
-                vc        = vcList?[temp-1]
-                container = layoutManager.textContainers[temp-1]
+//                vc        = vcList?[temp]
+                container = layoutManager.textContainers[temp]
             }
             
-            vc.text       = NSAttributedString(string: self.text!, attributes: [NSParagraphStyleAttributeName:self.attribute])
+            vc.size       = size
+            vc.color      = textColor
             vc.container  = container
+            vc.setText    = NSAttributedString(string: self.text!, attributes: [NSParagraphStyleAttributeName:self.attribute, NSFontAttributeName:textFont])
+            
+            temp = temp + 1
         }
     }
     
     /// 设置样式
     func getAttribute(paragraphStyle:inout NSMutableParagraphStyle) {
-        paragraphStyle.lineSpacing = textFont.capHeight * 2
+        paragraphStyle.lineSpacing = 20
         paragraphStyle.firstLineHeadIndent = textFont.pointSize * 2
         paragraphStyle.lineBreakMode = .byWordWrapping
     }

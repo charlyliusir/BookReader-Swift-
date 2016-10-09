@@ -10,7 +10,7 @@ import UIKit
 
 class ContentMainViewController: BaseViewController {
     var pageViewController:BookPageViewController!
-    let book:Book! = nil
+    var book:Book! = nil
     let chapterPage:Int = 0
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -45,8 +45,8 @@ class ContentMainViewController: BaseViewController {
         pageViewController.view.snp.makeConstraints { (make) in
             make.edges.equalToSuperview()
         }
-        
-        loadData()
+        /// 加载章节
+//        loadChapter()
         
     }
 
@@ -63,6 +63,18 @@ class ContentMainViewController: BaseViewController {
 
 // 私有方法
 extension ContentMainViewController{
+    /// 加载目录
+    func loadChapter() {
+        NetKit.get(url: book.address!, contants: .HTML, response: { (response)  in
+            if let data = response.data {
+                self.book.chapters = UnpackData.unpack_chapter_list(data: data, book: self.book)
+                DispatchQueue.main.async(execute: {
+                    self.loadData()
+                })
+            }
+        })
+    }
+    /// 加载章节数据
     func loadData() {
         var chapter:Chapter? = book.chapters?[chapterPage]
         if let temp = chapter {
@@ -89,25 +101,14 @@ extension ContentMainViewController{
 }
 
 extension ContentMainViewController:UIPageViewControllerDelegate{
-    func pageViewControllerSupportedInterfaceOrientations(_ pageViewController: UIPageViewController) -> UIInterfaceOrientationMask {
-        
-        return .portrait
-    }
-    
     func pageViewController(_ pageViewController: UIPageViewController, willTransitionTo pendingViewControllers: [UIViewController]) {
-        
+        print("will")
     }
-    
-    func pageViewControllerPreferredInterfaceOrientationForPresentation(_ pageViewController: UIPageViewController) -> UIInterfaceOrientation {
-        return .portrait
-    }
-    
-    func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
-        return .min
-    }
-    
     func pageViewController(_ pageViewController: UIPageViewController, didFinishAnimating finished: Bool, previousViewControllers: [UIViewController], transitionCompleted completed: Bool) {
-        
+        print("finish")
+    }
+    func pageViewController(_ pageViewController: UIPageViewController, spineLocationFor orientation: UIInterfaceOrientation) -> UIPageViewControllerSpineLocation {
+        return .none
     }
     
 }
@@ -116,23 +117,27 @@ extension ContentMainViewController:UIPageViewControllerDataSource
 {
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        // 向前
-        var aimVC:TextViewController? = nil
-        if self.pageViewController.currentPage > 0 {
-            self.pageViewController.currentPage -= 1
-            aimVC = self.pageViewController.vcList?[self.pageViewController.currentPage]
-        }
         
+        // 向后
+        print("向前。。。")
+        var aimVC:BaseViewController? = nil
+        self.pageViewController.currentPage += 1
+        if self.pageViewController.currentPage < 3 {
+            aimVC = self.pageViewController.vcList?[self.pageViewController.currentPage] as! BaseViewController?
+        }
         return aimVC
     }
+
     
     func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        // 向后
-        var aimVC:TextViewController? = nil
-        if self.pageViewController.currentPage < self.pageViewController.totalPage - 1 {
-            self.pageViewController.currentPage += 1
-            aimVC = self.pageViewController.vcList?[self.pageViewController.currentPage]
+        // 向前
+        print("向后。。。")
+        var aimVC:BaseViewController? = nil
+        self.pageViewController.currentPage -= 1
+        if self.pageViewController.currentPage > 0 {
+            aimVC = self.pageViewController.vcList?[self.pageViewController.currentPage] as! BaseViewController?
         }
+        
         return aimVC
     }
 }
