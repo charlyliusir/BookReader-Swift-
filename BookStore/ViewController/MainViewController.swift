@@ -8,13 +8,16 @@
 
 import UIKit
 
-class MainViewController: UIViewController {
+class MainViewController: BaseViewController {
     @IBOutlet weak var pageLabel: UILabel!
+    @IBOutlet weak var nameLabel: UILabel!
     var book:Book!
     var pageController:UIPageViewController!
+    var currentController:BookViewController!
     var controllers:Array<BookViewController>! = []
-    var currentPage:Int = 0
-    var chapterPage:Int = 0
+    var currentPage:Int   = 0
+    var chapterPage:Int   = 0
+    var totalPage:Int     = 0
     
     var size:CGSize!
     var text:String?
@@ -47,7 +50,7 @@ class MainViewController: UIViewController {
         pageController.dataSource = self
         
         pageController.setViewControllers([controllers.first!], direction: .forward, animated: true, completion: nil)
-        
+        currentController = controllers.first
         loadChapter()
     }
 
@@ -74,6 +77,7 @@ extension MainViewController{
     /// 加载章节数据
     func loadData() {
         var chapter:Chapter? = book.chapters?[chapterPage]
+        nameLabel.text = chapter?.name
         if let temp = chapter {
             
             if let text = temp.text {
@@ -100,8 +104,8 @@ extension MainViewController{
         ///
         currentPage = 0
         let textSize = text.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSParagraphStyleAttributeName:self.attribute,NSFontAttributeName:textFont], context: nil).size
-        var temp = 0
-        let totalPage   = Int(textSize.height/size.height) + Int(2)
+        var temp  = 0
+        totalPage = Int(textSize.height/size.height) + Int(2)
         while temp < totalPage  {
             var vc:BookViewController!
             var container:NSTextContainer!
@@ -123,7 +127,6 @@ extension MainViewController{
             
             temp = temp + 1
         }
-        
         updatePage()
     }
     
@@ -136,7 +139,7 @@ extension MainViewController{
     
     /// 更新页面信息
     func updatePage() {
-        self.pageLabel.text = "第 " + String(currentPage+1) + " / " + String(controllers.count) + " 页"
+        self.pageLabel.text = "第 \(String(self.currentPage+1)) / \(String(totalPage)) 页"
     }
 }
 
@@ -149,10 +152,16 @@ extension MainViewController: UIPageViewControllerDataSource {
         let bookController = viewController as! BookViewController
         currentPage = controllers.index(of:bookController)!
         updatePage()
-        if currentPage != controllers.count - 1 {
+        if currentPage != totalPage {
             return controllers[currentPage+1]
         } else {
-            return nil
+            if chapterPage != (book.chapters?.count)! - 1{
+                chapterPage += 1
+                loadData()
+                return controllers[0]
+            }else{
+                return nil
+            }
         }
         
     }
@@ -166,7 +175,13 @@ extension MainViewController: UIPageViewControllerDataSource {
         if currentPage != 0 {
             return controllers[currentPage-1]
         } else {
-            return nil
+            if chapterPage != 0 {
+                chapterPage -= 1
+                loadData()
+                return controllers[totalPage-1]
+            }else {
+                return nil
+            }
         }
         
     }

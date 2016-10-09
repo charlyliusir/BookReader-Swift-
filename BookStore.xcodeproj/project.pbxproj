@@ -366,7 +366,6 @@
 				TargetAttributes = {
 					18EC008F1D93AA7900707195 = {
 						CreatedOnToolsVersion = 8.0;
-						DevelopmentTeam = DRG4MCP4V7;
 						LastSwiftMigration = 0800;
 						ProvisioningStyle = Automatic;
 					};
@@ -634,7 +633,7 @@
 			baseConfigurationReference = BF8B1E8E03CBBF59EAB4986F /* Pods-BookStore.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DRG4MCP4V7;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BookStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.charly.BookStore;
@@ -648,7 +647,7 @@
 			baseConfigurationReference = A42320FB135A05542328A1E9 /* Pods-BookStore.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
-				DEVELOPMENT_TEAM = DRG4MCP4V7;
+				DEVELOPMENT_TEAM = "";
 				INFOPLIST_FILE = BookStore/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_BUNDLE_IDENTIFIER = com.charly.BookStore;
