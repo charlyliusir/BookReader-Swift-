@@ -77,6 +77,7 @@ class StoreViewController: BaseViewController {
             make.top.equalTo(searchBtn.snp.bottom).offset(30)
             make.left.equalTo(self.view)
             make.right.equalTo(self.view)
+            make.edges.equalToSuperview()
         }
         
         chartsBtn.snp.makeConstraints { (make) in

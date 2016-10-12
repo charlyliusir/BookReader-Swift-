@@ -11,49 +11,29 @@ import UIKit
 class MainViewController: BaseViewController {
     @IBOutlet weak var pageLabel: UILabel!
     @IBOutlet weak var nameLabel: UILabel!
+    var pageView:PageView!
     var book:Book!
-    var pageController:UIPageViewController!
-    var currentController:BookViewController!
-    var controllers:Array<BookViewController>! = []
-    var currentPage:Int   = 0
-    var chapterPage:Int   = 0
-    var totalPage:Int     = 0
     
-    var size:CGSize!
-    var text:String?
-    var layoutManager:NSLayoutManager!
-    var attribute:NSMutableParagraphStyle = NSMutableParagraphStyle()
-    let textColor:UIColor! = UIColor.black
-    let textFont:UIFont!   = font(22)
+    var currChapter:Int = 0
+    
+    override var prefersStatusBarHidden: Bool {
+        return true
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
+        
         // Do any additional setup after loading the view.
-        size = CGSize(width: SCREEN_WIDTH-20, height: SCREEN_HEIGHT-40)
-        pageController = self.childViewControllers.first as! UIPageViewController
         
-        getAttribute(paragraphStyle: &attribute)
+        pageView = PageView(frame: self.view.frame)
+        pageView.delegate = self
+        pageView.dataSource = self
         
-        layoutManager = NSLayoutManager()
-        let store     = NSTextStorage()
-        let container = NSTextContainer(size: size)
-        store.addLayoutManager(layoutManager)
-        layoutManager.addTextContainer(container)
-        /// 初始化第一个界面
-        let vc        = storyboard?.instantiateViewController(withIdentifier: "BookController") as! BookViewController
-        vc.container  = container
-        vc.size       = size
-        vc.color      = textColor
-        self.controllers?.append(vc)
+        self.view.addSubview(pageView)
         
-        pageController.dataSource = self
-        
-        pageController.setViewControllers([controllers.first!], direction: .forward, animated: true, completion: nil)
-        currentController = controllers.first
         loadChapter()
     }
-
+    
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
@@ -76,113 +56,56 @@ extension MainViewController{
     }
     /// 加载章节数据
     func loadData() {
-        var chapter:Chapter? = book.chapters?[chapterPage]
+        var chapter:Chapter? = book.chapters?[currChapter]
         nameLabel.text = chapter?.name
         if let temp = chapter {
             
-            if let text = temp.text {
-                
-                self.calculateText(text:text)
-                
+            if temp.text != nil {
+                pageView.reloadData()
             } else {
-                
                 NetKit.get(url: temp.address!, contants: .HTML, response: { (response)  in
                     if let data = response.data {
                         UnpackData.unpack_chapter_info(data: data,chapter: &chapter!)
-                        self.calculateText(text: (chapter?.text!)!)
+                        self.pageView.reloadData()
                     }
                 })
-                
             }
-            
         } else {
             print("没有章节")
         }
     }
-    
-    func calculateText(text:String) {
-        ///
-        currentPage = 0
-        let textSize = text.boundingRect(with: size, options: .usesLineFragmentOrigin, attributes: [NSParagraphStyleAttributeName:self.attribute,NSFontAttributeName:textFont], context: nil).size
-        var temp  = 0
-        totalPage = Int(textSize.height/size.height) + Int(2)
-        while temp < totalPage  {
-            var vc:BookViewController!
-            var container:NSTextContainer!
-            if temp >= (controllers?.count)! {
-                container = NSTextContainer(size: size)
-                layoutManager.addTextContainer(container)
-                vc            = storyboard?.instantiateViewController(withIdentifier: "BookController") as! BookViewController
-                vc.container  = container
-                controllers?.append(vc)
-            }else{
-                vc        = controllers?[temp]
-                container = layoutManager.textContainers[temp]
-            }
-            
-            vc.size       = size
-            vc.color      = textColor
-            vc.container  = container
-            vc.setText    = NSAttributedString(string: text, attributes: [NSParagraphStyleAttributeName:self.attribute, NSFontAttributeName:textFont])
-            
-            temp = temp + 1
+}
+
+extension MainViewController:PageViewDelegate {
+    func pageView(scrollLeftPage _pageView: PageView) {
+        
+        if currChapter != 0 {
+            currChapter -= 1
+            pageView.reloadData()
+            loadChapter()
         }
-        updatePage()
+        
     }
     
-    /// 设置样式
-    func getAttribute(paragraphStyle:inout NSMutableParagraphStyle) {
-        paragraphStyle.lineSpacing = 20
-        paragraphStyle.firstLineHeadIndent = textFont.pointSize * 2
-        paragraphStyle.lineBreakMode = .byWordWrapping
-    }
-    
-    /// 更新页面信息
-    func updatePage() {
-        self.pageLabel.text = "第 \(String(self.currentPage+1)) / \(String(totalPage)) 页"
+    func pageView(scrollRightPage _pageView: PageView) {
+        
+        if currChapter != (book.chapters?.count)! - 1 {
+            currChapter += 1
+            pageView.reloadData()
+            loadChapter()
+        }
+        
     }
 }
 
-
-extension MainViewController: UIPageViewControllerDataSource {
+extension MainViewController:PageViewDataSource {
     
-    //返回当前页面的下一个页面
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerAfter viewController: UIViewController) -> UIViewController? {
-        print("向前")
-        let bookController = viewController as! BookViewController
-        currentPage = controllers.index(of:bookController)!
-        updatePage()
-        if currentPage != totalPage {
-            return controllers[currentPage+1]
-        } else {
-            if chapterPage != (book.chapters?.count)! - 1{
-                chapterPage += 1
-                loadData()
-                return controllers[0]
-            }else{
-                return nil
-            }
-        }
-        
+    func pageView(bookName pageView: PageView) -> String? {
+        return book.chapters?[currChapter].name
     }
     
-    //返回当前页面的上一个页面
-    func pageViewController(_ pageViewController: UIPageViewController, viewControllerBefore viewController: UIViewController) -> UIViewController? {
-        print("向后")
-        let bookController = viewController as! BookViewController
-        currentPage = controllers.index(of:bookController)!
-        updatePage()
-        if currentPage != 0 {
-            return controllers[currentPage-1]
-        } else {
-            if chapterPage != 0 {
-                chapterPage -= 1
-                loadData()
-                return controllers[totalPage-1]
-            }else {
-                return nil
-            }
-        }
-        
+    func pageView(bookTextInfo pageView: PageView) -> String? {
+        return book.chapters?[currChapter].text
     }
+    
 }
