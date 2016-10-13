@@ -18,6 +18,8 @@ let xs_bookurl = "http://www.20xs.cc/book"
 let SCREEN_HEIGHT = UIScreen.main.bounds.size.height
 let SCREEN_WIDTH  = UIScreen.main.bounds.size.width
 
+let navigationTintColor = rgb(35,184,228)
+let navigationBarTintColor = rgb(66,113,71)
 let backgroundColor = rgb(249,253,240)
 let blackColor = hsb(285,0,29)
 let grayColor  = hsb(285,0,61)

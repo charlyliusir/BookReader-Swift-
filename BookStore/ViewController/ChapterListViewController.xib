@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES">
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner" customClass="ChapterListViewController" customModule="BookStore" customModuleProvider="target">
+            <connections>
+                <outlet property="tableView" destination="CdQ-LO-Mjq" id="drW-yu-ufl"/>
+                <outlet property="view" destination="i5M-Pr-FkT" id="sfx-zR-JGt"/>
+            </connections>
+        </placeholder>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view clearsContextBeforeDrawing="NO" contentMode="scaleToFill" id="i5M-Pr-FkT">
+            <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+            <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+            <subviews>
+                <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" style="plain" separatorStyle="none" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="CdQ-LO-Mjq">
+                    <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    <connections>
+                        <outlet property="dataSource" destination="-1" id="0Ls-mz-FeS"/>
+                        <outlet property="delegate" destination="-1" id="c7z-DC-AOC"/>
+                    </connections>
+                </tableView>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jIP-FE-7Qg">
+                    <subviews>
+                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="Ruc-4j-HUT">
+                            <state key="normal" title="取消">
+                                <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="calibratedRGB"/>
+                            </state>
+                            <connections>
+                                <action selector="cancelAction:" destination="-1" eventType="touchUpInside" id="SlZ-fM-6oO"/>
+                                <action selector="dissMissAction:" destination="-1" eventType="touchUpInside" id="SDZ-2A-3Tk"/>
+                            </connections>
+                        </button>
+                    </subviews>
+                    <color key="backgroundColor" red="0.45882352941176469" green="0.59999999999999998" blue="0.47450980392156861" alpha="1" colorSpace="calibratedRGB"/>
+                    <constraints>
+                        <constraint firstItem="Ruc-4j-HUT" firstAttribute="centerX" secondItem="jIP-FE-7Qg" secondAttribute="centerX" id="SZ9-iV-dee"/>
+                        <constraint firstItem="Ruc-4j-HUT" firstAttribute="centerY" secondItem="jIP-FE-7Qg" secondAttribute="centerY" id="hg3-9d-jKt"/>
+                        <constraint firstAttribute="height" constant="30" id="pku-aS-cre"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="CdQ-LO-Mjq" secondAttribute="trailing" id="JhS-Dp-GcK"/>
+                <constraint firstAttribute="trailing" secondItem="jIP-FE-7Qg" secondAttribute="trailing" id="KLX-XQ-HqM"/>
+                <constraint firstItem="CdQ-LO-Mjq" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="URS-yu-Y35"/>
+                <constraint firstItem="CdQ-LO-Mjq" firstAttribute="top" secondItem="i5M-Pr-FkT" secondAttribute="top" id="ao6-CP-1ma"/>
+                <constraint firstItem="jIP-FE-7Qg" firstAttribute="leading" secondItem="i5M-Pr-FkT" secondAttribute="leading" id="gng-0i-bB2"/>
+                <constraint firstItem="jIP-FE-7Qg" firstAttribute="top" secondItem="CdQ-LO-Mjq" secondAttribute="bottom" id="jl7-MS-F5n"/>
+                <constraint firstAttribute="bottom" secondItem="jIP-FE-7Qg" secondAttribute="bottom" id="rBe-e3-y4C"/>
+            </constraints>
+        </view>
+    </objects>
+</document>

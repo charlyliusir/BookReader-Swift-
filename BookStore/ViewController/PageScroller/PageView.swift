@@ -62,12 +62,12 @@ class PageView: UIView {
     }
     
     required init?(coder aDecoder: NSCoder) {
+        super.init(coder: aDecoder)
         fatalError("init(coder:) has not been implemented")
     }
     
     /// 视图加载出来后会调用此方法
     override func draw(_ rect: CGRect) {
-        
         reloadData()
     }
     
@@ -105,11 +105,12 @@ class PageView: UIView {
     func calculateViewCount(withBookText text:String) -> Int {
         let textHeight = getAttributeString(bookText: text).boundingRect(with: containerSize, options: .usesLineFragmentOrigin, context: nil).size.height
         
-        var ftotalCount = Int(textHeight) / Int((containerSize?.height)!)
-        if Int(textHeight) % Int((containerSize?.height)!) > 0 {ftotalCount += 1}
+        let ftotalCount = Int(textHeight) / Int((containerSize?.height)!)
+//        if Int(textHeight) % Int((containerSize?.height)!) > 0 {ftotalCount += 1}
         
-        let ntotalCount = ftotalCount*(100)+Int(textHeight)
-        if ntotalCount/Int((containerSize?.height)!) > 0 {ntotalCount += 1}
+        var ntotalCount = (ftotalCount*(60)+Int(textHeight))/Int((containerSize?.height)!)
+        
+        if (ftotalCount*(60)+Int(textHeight))%Int((containerSize?.height)!) > 0 {ntotalCount += 1}
         
         return ntotalCount
 

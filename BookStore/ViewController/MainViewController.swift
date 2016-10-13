@@ -9,9 +9,9 @@
 import UIKit
 
 class MainViewController: BaseViewController {
-    @IBOutlet weak var pageLabel: UILabel!
-    @IBOutlet weak var nameLabel: UILabel!
-    var pageView:PageView!
+    @IBOutlet weak var menuView: UIView!
+    @IBOutlet weak var bookNameLabel: UILabel!
+    var pageView: PageView!
     var book:Book!
     
     var currChapter:Int = 0
@@ -24,14 +24,15 @@ class MainViewController: BaseViewController {
         super.viewDidLoad()
         
         // Do any additional setup after loading the view.
-        
+        self.bookNameLabel.text = book.name
         pageView = PageView(frame: self.view.frame)
         pageView.delegate = self
         pageView.dataSource = self
-        
         self.view.addSubview(pageView)
+        self.view.bringSubview(toFront: menuView)
         
         loadChapter()
+        loadTapGesture()
     }
     
     override func didReceiveMemoryWarning() {
@@ -39,6 +40,20 @@ class MainViewController: BaseViewController {
         // Dispose of any resources that can be recreated.
     }
     
+    @IBAction func backAction(_ sender: AnyObject) {
+        self.dismiss(animated: true, completion: nil)
+    }
+    
+    @IBAction func goChapterList(_ sender: AnyObject) {
+        let chapterList = ChapterListViewController(nibName: "ChapterListViewController", bundle: Bundle(for: ChapterListViewController.self))
+        chapterList.dataRows = book.chapters
+        chapterList.titleName = book.name
+        chapterList.delegate = self
+        let navigation  = UINavigationController(rootViewController: chapterList)
+        navigation.navigationBar.tintColor = navigationTintColor
+        navigation.navigationBar.barTintColor = navigationBarTintColor
+        self.present(navigation, animated: true, completion: nil)
+    }
 }
 
 // 私有方法
@@ -57,9 +72,7 @@ extension MainViewController{
     /// 加载章节数据
     func loadData() {
         var chapter:Chapter? = book.chapters?[currChapter]
-        nameLabel.text = chapter?.name
         if let temp = chapter {
-            
             if temp.text != nil {
                 pageView.reloadData()
             } else {
@@ -73,6 +86,26 @@ extension MainViewController{
         } else {
             print("没有章节")
         }
+    }
+    func loadTapGesture() -> Swift.Void {
+        let tapAction = UITapGestureRecognizer(target: self, action: #selector(showMenuUI(_:)))
+        self.view.addGestureRecognizer(tapAction)
+        
+    }
+    
+    func showMenuUI(_ sender:Any) -> Swift.Void {
+        
+        menuView.isHidden = !menuView.isHidden
+        
+    }
+    
+}
+
+extension MainViewController: ChapterListDelegate {
+    func chapterListVC(_ chapterListVC: ChapterListViewController, selectChapter item: Int) {
+        currChapter = item
+        pageView.reloadData()
+        loadChapter()
     }
 }
 
@@ -96,6 +129,7 @@ extension MainViewController:PageViewDelegate {
         }
         
     }
+    
 }
 
 extension MainViewController:PageViewDataSource {

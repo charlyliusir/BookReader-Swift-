@@ -100,7 +100,6 @@ class StoreViewController: BaseViewController {
         // Do any additional setup after loading the view.
         self.title = "书库"
         initUI()
-        
     }
 
     override func didReceiveMemoryWarning() {
