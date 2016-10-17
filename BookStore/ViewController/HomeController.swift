@@ -9,9 +9,8 @@
 import Fuzi
 import Kingfisher
 import SVProgressHUD
-import DGElasticPullToRefresh
 
-class HomeController: TableViewController,UITableViewDelegate,UITableViewDataSource{
+class HomeController: HomeTableViewController,UITableViewDelegate,UITableViewDataSource{
     let Identifier = "Cell"
     var bookList  : Array <Book>! = []
     
@@ -28,7 +27,7 @@ class HomeController: TableViewController,UITableViewDelegate,UITableViewDataSou
             self?.tableView.dg_stopLoading()
             }, loadingView: loadingView)
         tableView.dg_setPullToRefreshFillColor((self.navigationController?.navigationBar.barTintColor)!)
-        tableView.dg_setPullToRefreshBackgroundColor(backgroundColor)
+        tableView.dg_setPullToRefreshBackgroundColor(BackgroundColor)
         /// 添加FooterView
         let footerView = UIButton(type: .custom)
         footerView.frame = CGRect(x: 0, y: 0, width: SCREEN_WIDTH, height: 68)
@@ -77,9 +76,11 @@ class HomeController: TableViewController,UITableViewDelegate,UITableViewDataSou
     /// 跳转书库
     @IBAction func turnBookStore(_ sender: AnyObject) {
         if sender.isKind(of: UIButton.self) {
-            self.navigationController?.pushViewController(CategoryViewController(), animated: true)
+            let cateVC   = storyboard?.instantiateViewController(withIdentifier: "CategoryViewControllerID") as! CategoryViewController
+            self.navigationController?.pushViewController(cateVC, animated: true)
         }else{
-            self.navigationController?.pushViewController(StoreViewController(), animated: true)
+            let storeVC = storyboard?.instantiateViewController(withIdentifier: "StoreViewControllerID") as! StoreViewController
+            self.navigationController?.pushViewController(storeVC, animated: true)
         }
         
     }

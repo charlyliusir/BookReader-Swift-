@@ -45,7 +45,7 @@ class PageView: UIView {
         containerSize = CGSize(width: frame.size.width-20, height: frame.size.height-60)
         
         scrollView = UIScrollView(frame: frame)
-        scrollView.backgroundColor = UIColor.white
+        scrollView.backgroundColor = rgb(156, 188, 150)
         scrollView.isPagingEnabled = true
         scrollView.showsVerticalScrollIndicator = false
         scrollView.showsHorizontalScrollIndicator = false
@@ -108,9 +108,9 @@ class PageView: UIView {
         let ftotalCount = Int(textHeight) / Int((containerSize?.height)!)
 //        if Int(textHeight) % Int((containerSize?.height)!) > 0 {ftotalCount += 1}
         
-        var ntotalCount = (ftotalCount*(60)+Int(textHeight))/Int((containerSize?.height)!)
+        var ntotalCount = (ftotalCount*(20)+Int(textHeight))/Int((containerSize?.height)!)
         
-        if (ftotalCount*(60)+Int(textHeight))%Int((containerSize?.height)!) > 0 {ntotalCount += 1}
+        if (ftotalCount*(20)+Int(textHeight))%Int((containerSize?.height)!) > 0 {ntotalCount += 1}
         
         return ntotalCount
 
@@ -130,6 +130,7 @@ class PageView: UIView {
                 textContainer = NSTextContainer(size: containerSize)
                 layoutManager.addTextContainer(textContainer)
                 pageViewCell  = PageViewCell(frame: CGRect(x: CGFloat(temp) * self.frame.size.width , y: 0, width: self.frame.size.width, height: self.frame.size.height))
+                pageViewCell.backgroundColor = rgb(156, 188, 150)
                 vcArrays.append(pageViewCell)
             } else {
                 textContainer = layoutManager.textContainers[temp]

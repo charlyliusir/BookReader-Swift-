@@ -38,7 +38,7 @@ class BookListViewController: TableViewController,UITableViewDelegate,UITableVie
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let book = self.dataSource[indexPath.row] as! Book
-        let infoVC   = BookInfoViewController()
+        let infoVC   = storyboard?.instantiateViewController(withIdentifier: "BookInfoViewControllerID") as! BookInfoViewController
         infoVC.book  = book
         self.navigationController?.pushViewController(infoVC, animated: true)
     }

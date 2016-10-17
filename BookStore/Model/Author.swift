@@ -18,7 +18,11 @@ class Author: NSObject {
     
     /// 便利构造器
     init(name:String?) {
-        self.name = name
+        if name == nil {
+            self.name = "无名"
+        }else {
+            self.name = name
+        }
     }
     
     func class_desc() {

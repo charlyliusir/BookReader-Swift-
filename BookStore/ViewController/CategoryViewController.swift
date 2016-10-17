@@ -32,7 +32,7 @@ class CategoryViewController: BaseViewController, UICollectionViewDelegate, UICo
     
     /// collection delegate
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let bookList  = BookListViewController()
+        let bookList  = storyboard?.instantiateViewController(withIdentifier: "BookListViewControllerID") as! BookListViewController
         bookList.type = BookCategory(rawValue: cgnArray[indexPath.row])!
         self.navigationController?.pushViewController(bookList, animated: true)
     }

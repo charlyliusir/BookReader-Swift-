@@ -20,7 +20,7 @@ let SCREEN_WIDTH  = UIScreen.main.bounds.size.width
 
 let navigationTintColor = rgb(35,184,228)
 let navigationBarTintColor = rgb(66,113,71)
-let backgroundColor = rgb(249,253,240)
+let BackgroundColor = rgb(249,253,240)
 let blackColor = hsb(285,0,29)
 let grayColor  = hsb(285,0,61)
 let textColor  = hsb(194,85,89)
@@ -56,8 +56,8 @@ func font(_ size:CGFloat) -> UIFont {
 func book_category(category:UInt, page:UInt) -> String{
     return xs_bookurl + "_" + String(category) + "_" + String(page)
 }
-func book_search(query:String) -> String{
-    return "http://so.23wx.com/cse/search?s=15772447660171623812&entry=1&q=" + query
+func book_search(query:String?) -> String{
+    return "http://so.23wx.com/cse/search?s=15772447660171623812&entry=1&q=" + query!
 }
 
 

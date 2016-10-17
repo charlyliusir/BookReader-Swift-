@@ -7,18 +7,14 @@
 //
 
 import UIKit
-import DGElasticPullToRefresh
 import ESPullToRefresh
 /// 所有拥有TableViewVC的父视图
 
 class TableViewController: BaseViewController {
     var tableView:UITableView!
-    var loadingView:DGElasticPullToRefreshLoadingViewCircle!
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        loadingView = DGElasticPullToRefreshLoadingViewCircle()
-        loadingView.tintColor = refreshTintColor
         tableView = UITableView(frame: self.view.frame, style: .plain)
         tableView.separatorStyle = .none
         tableView.backgroundColor = UIColor.clear

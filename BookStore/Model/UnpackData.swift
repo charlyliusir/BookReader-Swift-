@@ -88,7 +88,11 @@ class UnpackData {
         let index     = cgArray.index(of: category.substring(from: category.index(category.startIndex, offsetBy: 3)))
         book.category = BookCategory(rawValue: cgnArray[index!])
         // 2.stringValue 作者
-        let bookAuthor:Author = Author(name: author?["title"])
+        var authorName = author?["title"]
+        if authorName == nil {
+            authorName = children[1].stringValue.substring(from: category.index(category.startIndex, offsetBy: 3))
+        }
+        let bookAuthor:Author = Author(name: authorName)
         bookAuthor.address    = author?["href"]
         
         book.author = bookAuthor

@@ -47,6 +47,10 @@ class NetKit{
                     
                     packData.data = dataString?.data(using: .utf8, allowLossyConversion: false)
                     
+                } else {
+                    
+                    packData.data = data
+                    
                 }
                 
             }

@@ -167,6 +167,10 @@ class BookInfoViewController: BaseViewController{
     
     func readAction(sender:Any) -> Swift.Void {
         // 进入目录
+        print("read action")
+        let infoVC   = storyboard?.instantiateViewController(withIdentifier: "MainViewControllerID") as! MainViewController
+        infoVC.book  = book
+        self.present(infoVC, animated: true, completion: nil)
     }
 
     /*

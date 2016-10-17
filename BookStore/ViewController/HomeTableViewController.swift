@@ -1,21 +1,27 @@
 //
-//  ChapterViewController.swift
+//  HomeTableViewController.swift
 //  BookStore
 //
-//  Created by 刘朝龙 on 2016/10/7.
+//  Created by apple on 16/10/14.
 //  Copyright © 2016年 刘朝龙. All rights reserved.
 //
 
 import UIKit
+import DGElasticPullToRefresh
 
-class ChapterViewController: TableViewController {
-
+class HomeTableViewController: BaseViewController {
+    var tableView:UITableView!
+    var loadingView:DGElasticPullToRefreshLoadingViewCircle!
     override func viewDidLoad() {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        
-        
+        loadingView = DGElasticPullToRefreshLoadingViewCircle()
+        loadingView.tintColor = refreshTintColor
+        tableView = UITableView(frame: self.view.frame, style: .plain)
+        tableView.separatorStyle = .none
+        tableView.backgroundColor = UIColor.clear
+        self.view.addSubview(self.tableView)
     }
 
     override func didReceiveMemoryWarning() {

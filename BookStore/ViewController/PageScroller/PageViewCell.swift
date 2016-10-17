@@ -15,6 +15,7 @@ class PageViewCell: NibDesignable {
     @IBOutlet weak var titleLabel: UILabel!
     @IBOutlet weak var totalLabel: UILabel!
     @IBOutlet weak var currentLabel: UILabel!
+    @IBOutlet weak var bottomView: UIView!
     
     /// 数据
     open var name:String?
@@ -33,11 +34,12 @@ class PageViewCell: NibDesignable {
     
     open func setStyle() {
         if textView == nil {
-            textView  = UITextView(frame: CGRect(x: 10, y: 0, width: self.frame.size.width-20, height: self.frame.size.height-60), textContainer: self.textContainer)
+            textView  = UITextView(frame: CGRect(x: 10, y: 0, width: self.frame.size.width-20, height: self.frame.size.height-40), textContainer: self.textContainer)
+            textView.backgroundColor = rgb(156, 188, 150)
             textView.isEditable = false
             textView.isScrollEnabled = false
             self.contentView.addSubview(textView)
-            self.sendSubview(toBack: self.textView)
+            self.contentView.bringSubview(toFront: bottomView)
         }
         
         self.textView.attributedText = title

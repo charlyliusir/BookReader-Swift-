@@ -77,7 +77,7 @@ class StoreViewController: BaseViewController {
             make.top.equalTo(searchBtn.snp.bottom).offset(30)
             make.left.equalTo(self.view)
             make.right.equalTo(self.view)
-            make.edges.equalToSuperview()
+//            make.edges.equalToSuperview()
         }
         
         chartsBtn.snp.makeConstraints { (make) in
@@ -112,11 +112,11 @@ class StoreViewController: BaseViewController {
         var vc:BaseViewController!
         switch btn.tag {
         case 1:
-            vc = SearchViewController()
+            vc = storyboard?.instantiateViewController(withIdentifier: "SearchViewControllerID") as! SearchViewController
         case 2:
-            vc = CategoryViewController()
+            vc = storyboard?.instantiateViewController(withIdentifier: "CategoryViewControllerID") as! CategoryViewController
         case 3, 4:
-            let bookList = BookListViewController()
+            let bookList = storyboard?.instantiateViewController(withIdentifier: "BookListViewControllerID") as! BookListViewController
             bookList.type = BookCategory(rawValue: btn.tag)!
             vc = bookList
         default:

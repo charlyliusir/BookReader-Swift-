@@ -1,5 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="16A323" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="viH-c2-DbU">
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="11201" systemVersion="15G1004" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" colorMatched="YES" initialViewController="viH-c2-DbU">
     <dependencies>
         <deployment identifier="iOS"/>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="11161"/>
@@ -31,6 +31,80 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="855" y="-87"/>
+        </scene>
+        <!--Search View Controller-->
+        <scene sceneID="q77-9O-Piy">
+            <objects>
+                <viewController storyboardIdentifier="SearchViewControllerID" id="9r6-rt-WAa" customClass="SearchViewController" customModule="BookStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ajw-Eg-7W0"/>
+                        <viewControllerLayoutGuide type="bottom" id="25T-22-Eeu"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="UZ5-Rd-iQr">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <searchBar contentMode="redraw" translatesAutoresizingMaskIntoConstraints="NO" id="jdU-Ga-AUL">
+                                <textInputTraits key="textInputTraits"/>
+                                <connections>
+                                    <outlet property="delegate" destination="9r6-rt-WAa" id="w2D-RA-xhc"/>
+                                </connections>
+                            </searchBar>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="44" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="ca5-Yv-RyD">
+                                <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" restorationIdentifier="SearchBookCellID" selectionStyle="default" indentationWidth="10" reuseIdentifier="SearchBookCellID" id="rJg-jz-Tpl" customClass="BookTableViewCell" customModule="BookStore" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="28" width="375" height="44"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="rJg-jz-Tpl" id="z7F-qc-C1V">
+                                            <frame key="frameInset" width="375" height="43"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <connections>
+                                    <outlet property="dataSource" destination="9r6-rt-WAa" id="DUR-0m-MXF"/>
+                                    <outlet property="delegate" destination="9r6-rt-WAa" id="Btg-WW-w90"/>
+                                </connections>
+                            </tableView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="ca5-Yv-RyD" firstAttribute="top" secondItem="jdU-Ga-AUL" secondAttribute="bottom" constant="10" id="BNs-hc-TgM"/>
+                            <constraint firstItem="jdU-Ga-AUL" firstAttribute="leading" secondItem="UZ5-Rd-iQr" secondAttribute="leading" id="Iwx-cx-6KH"/>
+                            <constraint firstItem="ca5-Yv-RyD" firstAttribute="leading" secondItem="UZ5-Rd-iQr" secondAttribute="leading" id="L39-y4-S1c"/>
+                            <constraint firstItem="25T-22-Eeu" firstAttribute="top" secondItem="ca5-Yv-RyD" secondAttribute="bottom" id="QE0-Ou-lCV"/>
+                            <constraint firstAttribute="trailing" secondItem="ca5-Yv-RyD" secondAttribute="trailing" id="YSe-Xa-f94"/>
+                            <constraint firstAttribute="trailing" secondItem="jdU-Ga-AUL" secondAttribute="trailing" id="lXE-oB-Hks"/>
+                            <constraint firstItem="jdU-Ga-AUL" firstAttribute="top" secondItem="Ajw-Eg-7W0" secondAttribute="bottom" id="tje-tT-ZYf"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="serachBar" destination="jdU-Ga-AUL" id="5xE-C7-UMX"/>
+                        <outlet property="tableview" destination="ca5-Yv-RyD" id="7jP-24-60r"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Cba-kK-efv" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1636" y="-82"/>
+        </scene>
+        <!--Category View Controller-->
+        <scene sceneID="4i0-Hk-PIF">
+            <objects>
+                <viewController storyboardIdentifier="CategoryViewControllerID" id="K5a-km-Yu4" customClass="CategoryViewController" customModule="BookStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ham-p5-ScW"/>
+                        <viewControllerLayoutGuide type="bottom" id="tUN-JA-v4M"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="OEk-Ih-x00">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="hV6-25-Gll" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2471" y="-80"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="rDr-1K-hkH">
@@ -72,7 +146,7 @@
                                     <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="6zI-2o-zS5">
                                         <subviews>
                                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="书籍名称" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="pC5-DV-wsc">
-                                                <fontDescription key="fontDescription" type="system" pointSize="18"/>
+                                                <fontDescription key="fontDescription" type="system" pointSize="16"/>
                                                 <color key="textColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
                                                 <nil key="highlightedColor"/>
                                             </label>
@@ -141,6 +215,60 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="W2U-QL-RQU" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="-15" y="616"/>
+        </scene>
+        <!--Book Info View Controller-->
+        <scene sceneID="Vac-dq-Rhx">
+            <objects>
+                <viewController storyboardIdentifier="BookInfoViewControllerID" id="fIj-2D-tNN" customClass="BookInfoViewController" customModule="BookStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="VCJ-f6-tHo"/>
+                        <viewControllerLayoutGuide type="bottom" id="o6a-fj-2IN"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="HHQ-Ld-KZs">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="yCt-5e-wPt" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="783" y="622"/>
+        </scene>
+        <!--Book List View Controller-->
+        <scene sceneID="GhX-q7-mqZ">
+            <objects>
+                <viewController storyboardIdentifier="BookListViewControllerID" id="qJR-E9-uw5" customClass="BookListViewController" customModule="BookStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="u7A-LZ-MVF"/>
+                        <viewControllerLayoutGuide type="bottom" id="acI-M1-BFU"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="eO9-ar-kVE">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="q3w-CD-Y34" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1519" y="622"/>
+        </scene>
+        <!--Store View Controller-->
+        <scene sceneID="63z-gQ-18F">
+            <objects>
+                <viewController storyboardIdentifier="StoreViewControllerID" id="oyM-wW-6QY" customClass="StoreViewController" customModule="BookStore" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="Ofu-I8-VhY"/>
+                        <viewControllerLayoutGuide type="bottom" id="XfN-fO-z8d"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Chl-xD-DxT">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                    </view>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="xFd-jG-2ei" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2549" y="616"/>
         </scene>
     </scenes>
     <resources>
